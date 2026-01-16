@@ -6,8 +6,8 @@ import (
 	"io"
 	"log"
 	"os"
-	"os/exec"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -50,14 +50,64 @@ func uncolor(line string) string {
 	return line
 }
 
-func echo(w io.Writer, str string) {
-	cmd := exec.Command("echo", "-e", str)
-	cmd.Stdout = w
-	cmd.Stderr = os.Stderr
-	err := cmd.Run()
-	if err != nil {
-		log.Fatal(err)
+func unescapeEcho(str string) string {
+	if !strings.Contains(str, "\\") {
+		return str
 	}
+	var out strings.Builder
+	out.Grow(len(str))
+	for i := 0; i < len(str); i++ {
+		ch := str[i]
+		if ch != '\\' {
+			out.WriteByte(ch)
+			continue
+		}
+		if i+1 >= len(str) {
+			out.WriteByte('\\')
+			break
+		}
+		next := str[i+1]
+		switch next {
+		case 'e':
+			out.WriteByte(0x1b)
+			i++
+		case 'n':
+			out.WriteByte('\n')
+			i++
+		case 'r':
+			out.WriteByte('\r')
+			i++
+		case 't':
+			out.WriteByte('\t')
+			i++
+		case '\\':
+			out.WriteByte('\\')
+			i++
+		case 'x':
+			if i+3 < len(str) {
+				hex := str[i+2 : i+4]
+				val, err := strconv.ParseUint(hex, 16, 8)
+				if err == nil {
+					out.WriteByte(byte(val))
+					i += 3
+					break
+				}
+			}
+			out.WriteByte('x')
+			i++
+		default:
+			out.WriteByte(next)
+			i++
+		}
+	}
+	return out.String()
+}
+
+func echo(w io.Writer, str string) {
+	_, err := w.Write([]byte(unescapeEcho(str)))
+	panicOnError(err)
+	_, err = w.Write([]byte("\n"))
+	panicOnError(err)
 }
 
 func collapse(w io.Writer, lines []string, patterns []*regexp.Regexp) {

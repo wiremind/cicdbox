@@ -1,0 +1,4 @@
+helm:XYZ> some non-debug line
+Waiting for rollout to finish: 1 of 2 updated replicas are available...
+helm:XYZ> another non-debug line
+helm:XYZ> upgrade.go:150: [debug] performing update for release

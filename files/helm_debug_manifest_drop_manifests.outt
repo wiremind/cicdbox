@@ -1,0 +1,4 @@
+\x1b[0;33mcicdbox: Helm debug logs and filtered non-debug output will be displayed...\x1b[0m
+performing update for release
+Waiting for rollout to finish: 1 of 2 updated replicas are available...
+creating 1 resource(s)
