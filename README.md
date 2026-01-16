@@ -83,6 +83,20 @@ Example:
   - helmfile --debug sync |& ./cicdbox listen-helm-debug
 ```
 
+To keep live status lines while removing Helm/Kubernetes manifest output:
+
+```
+  - set -o pipefail
+  - helmfile --debug sync |& ./cicdbox listen-helm-debug --drop-helm-manifests
+```
+
+To drop any non-debug lines prefixed with `helm:…>`:
+
+```
+  - set -o pipefail
+  - helmfile --debug sync |& ./cicdbox listen-helm-debug --drop-helm-prefixed
+```
+
 The output would look like:
 
 ![listen_helm_output](./images/listen_helm_output.png)

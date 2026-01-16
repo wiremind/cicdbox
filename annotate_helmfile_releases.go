@@ -43,7 +43,7 @@ func RunCommand(name string, arg ...string) (string, error) {
 
 	err := cmd.Run()
 	if err != nil {
-		return "", fmt.Errorf(stderr.String())
+		return "", fmt.Errorf("%s", stderr.String())
 	}
 	return stdout.String(), nil
 }

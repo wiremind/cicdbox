@@ -1,0 +1,16 @@
+helm:vaGzI> upgrade.go:150: [debug] performing update for release
+# Source: chart/templates/deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 2
+---
+# Source: chart/templates/svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+Waiting for rollout to finish: 1 of 2 updated replicas are available...
+helm:vaGzI> client.go:128: [debug] creating 1 resource(s)

@@ -1,0 +1,16 @@
+helm:XaFux> upgrade.go:150: [debug] performing update for release
+helm:XaFux> # Source: chart/templates/deploy.yaml
+helm:XaFux> apiVersion: apps/v1
+helm:XaFux> kind: Deployment
+helm:XaFux> metadata:
+helm:XaFux>   name: myapp
+helm:XaFux> spec:
+helm:XaFux>   replicas: 2
+helm:XaFux> ---
+helm:XaFux> # Source: chart/templates/svc.yaml
+helm:XaFux> apiVersion: v1
+helm:XaFux> kind: Service
+helm:XaFux> metadata:
+helm:XaFux>   name: myapp
+Waiting for rollout to finish: 1 of 2 updated replicas are available...
+helm:XaFux> client.go:128: [debug] creating 1 resource(s)
