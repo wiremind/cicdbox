@@ -23,7 +23,7 @@ After hiding `image: docker.foo.fr...` diffs:
 
 ```
   # Don't forget to set -o pipefail (in bash e.g.) to pervent helm diff errors from being masked.
-  - helm diff | ./cicdbox collapse-helm-diff '^\s+-?image: docker\.foo\.fr' 
+  - helm diff | ./cicdbox collapse-helm-diff '^\s+-?image: docker\.foo\.fr'
 ```
 
 The diff will look like:
