@@ -32,7 +32,7 @@ func loadTestFiles(inputFilePath, expectFilePath string) (*bufio.Scanner, string
 
 	// expected output
 	expectFile := openFile(expectFilePath)
-	defer expectFile.Close()
+	defer func() { _ = expectFile.Close() }()
 	var expect strings.Builder
 	echoLines(bufio.NewScanner(expectFile), &expect)
 
