@@ -1,3 +1,3 @@
 module gitlab.com/machine424/cicdbox
 
-go 1.22
+go 1.27.3
